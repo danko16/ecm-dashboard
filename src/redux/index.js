@@ -4,6 +4,8 @@ import thunkMiddleware from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
+import { createBrowserHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
 
 import rootReducers from './reducers';
 import rootSagas from './effects';
@@ -12,15 +14,17 @@ const persistConfig = {
   key: 'root',
   storage,
   stateReconciler: autoMergeLevel2,
-  whitelist: ['shortenLink'],
+  whitelist: ['me'],
   blacklist: [],
   transforms: []
 };
 
-const sagaMiddleWare = createSagaMiddleware();
-const middleware = [sagaMiddleWare, thunkMiddleware].filter(x => !!x);
+export const history = createBrowserHistory();
 
-const persistReducers = persistReducer(persistConfig, rootReducers);
+const sagaMiddleWare = createSagaMiddleware();
+const middleware = [sagaMiddleWare, thunkMiddleware, routerMiddleware(history)].filter(x => !!x);
+
+const persistReducers = persistReducer(persistConfig, rootReducers(history));
 
 export const store = createStore(persistReducers, compose(applyMiddleware(...middleware)));
 export const persistor = persistStore(store);

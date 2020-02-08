@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 
 import { ME_ACTIONS, meActions } from '../reducers/me';
 import authApi from '../api/auth';
@@ -19,7 +20,9 @@ function* login({ value }) {
     } = yield call(authApi.login, payload);
 
     if (data) {
+      console.log(data);
       yield put(meActions.setData(data));
+      yield put(push('/'));
     }
   } catch (error) {
     console.log(error);
