@@ -39,7 +39,15 @@ function Auth(props) {
           borderRadius: 6
         }}
       >
-        <div
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            login({
+              email_phone: emailPhone,
+              password: password,
+              provider: 'local'
+            });
+          }}
           style={{
             display: 'flex',
             width: 600,
@@ -92,17 +100,10 @@ function Auth(props) {
               backgroundColor: '#498de6',
               cursor: 'pointer'
             }}
-            onClick={() => {
-              login({
-                email_phone: emailPhone,
-                password: password,
-                provider: 'local'
-              });
-            }}
             value="LOGIN"
             type="submit"
           />
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 export const ME_ACTIONS = Object.freeze({
   SET_DATA: 'myapp/me/set-data',
   CUSTOM_SET: 'myapp/me/custom-set',
-  LOGIN_REQUEST: 'myapp/me/login/request',
-  REGISTER_REQUEST: 'myapp/me/register/request'
+  LOGIN_REQUEST: 'myapp/me/login-request',
+  REGISTER_REQUEST: 'myapp/me/register-request',
+  INFO_REQUEST: 'myapp/me/info-request'
 });
 
 export const meActions = Object.freeze({
@@ -22,6 +23,9 @@ export const meActions = Object.freeze({
   registerRequest: value => ({
     type: ME_ACTIONS.REGISTER_REQUEST,
     value
+  }),
+  infoRequest: () => ({
+    type: ME_ACTIONS.INFO_REQUEST
   })
 });
 
@@ -51,6 +55,7 @@ const reducer = (state = initState, { type, value, field }) => {
       };
     case ME_ACTIONS.LOGIN_REQUEST:
     case ME_ACTIONS.REGISTER_REQUEST:
+    case ME_ACTIONS.INFO_REQUEST:
       return {
         ...state,
         loading: true

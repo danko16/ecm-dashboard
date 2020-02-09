@@ -4,6 +4,14 @@ import { push } from 'connected-react-router';
 import { ME_ACTIONS, meActions } from '../reducers/me';
 import authApi from '../api/auth';
 
+function* info() {
+  try {
+    yield call(authApi.info);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function* login({ value }) {
   try {
     const payload = {
@@ -52,7 +60,8 @@ function* register({ value }) {
 
 const meSaga = [
   takeLatest(ME_ACTIONS.LOGIN_REQUEST, login),
-  takeLatest(ME_ACTIONS.REGISTER_REQUEST, register)
+  takeLatest(ME_ACTIONS.REGISTER_REQUEST, register),
+  takeLatest(ME_ACTIONS.INFO_REQUEST, info)
 ];
 
 export default meSaga;

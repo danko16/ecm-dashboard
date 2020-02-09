@@ -2,6 +2,10 @@ import { Api } from '../../utils';
 import querystring from 'querystring';
 
 export default Object.freeze({
+  info: () =>
+    Api.get('/info', {
+      headers: { 'Content-Type': 'application/json' }
+    }),
   login: payload =>
     Api.post('/login', payload, {
       headers: { 'Content-Type': 'application/json' }
