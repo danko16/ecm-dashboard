@@ -20,8 +20,7 @@ function* login({ value }) {
     } = yield call(authApi.login, payload);
 
     if (data) {
-      console.log(data);
-      yield put(meActions.setData(data));
+      yield put(meActions.setData({ ...data, id: data.admin_id }));
       yield put(push('/'));
     }
   } catch (error) {
@@ -44,7 +43,7 @@ function* register({ value }) {
     } = yield call(authApi.register, payload);
 
     if (data) {
-      yield put(meActions.setData(data));
+      yield put(meActions.setData({ ...data, id: data.admin_id }));
     }
   } catch (error) {
     console.log(error);
