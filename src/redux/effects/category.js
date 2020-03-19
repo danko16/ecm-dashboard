@@ -1,7 +1,6 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+import { call, takeLatest } from 'redux-saga/effects';
 
-import { CATEGORY_ACTIONS, categoryActions } from '../reducers/category';
+import { CATEGORY_ACTIONS } from '../reducers/category';
 import categoryApi from '../api/category';
 
 function* create({ value }) {

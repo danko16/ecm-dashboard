@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { ConnectedRouter } from 'connected-react-router';
 import decode from 'jwt-decode';
 import PropTypes from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { history, store } from './redux';
 import { Login, Home } from './views';

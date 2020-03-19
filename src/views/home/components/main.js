@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import { categoryActions } from '../../../redux/reducers/category';
+import './main.css';
 
 const mapActionToProps = dispatch =>
   bindActionCreators(
@@ -13,24 +14,41 @@ const mapActionToProps = dispatch =>
     dispatch
   );
 
+const openedStyle = {
+  marginLeft: 250,
+  transition: 'margin-left 0.5s ease-in-out'
+};
+
+const closedStyle = {
+  marginLeft: '4.6rem',
+  transition: 'margin-left 0.5s ease-in-out'
+};
+
 function Main(props) {
-  const { createCategory } = props;
+  const { createCategory, openSidebar } = props;
   const [name, setName] = useState('');
   const [file, setFile] = useState(null);
   const [image, setImage] = useState('');
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        marginTop: 50,
-        marginLeft: 240,
-        height: 525,
-        width: 1076,
-        padding: 25,
-        overflow: 'auto'
-      }}
-    >
+    <div className="content-wrapper" style={openSidebar ? openedStyle : closedStyle}>
+      <div className="content-header">
+        <div className="container-fluid">
+          <div className="row mb-2">
+            <div className="col-sm-6">
+              <h1 className="m-0 text-dark">Dashboard</h1>
+            </div>
+            <div className="col-sm-6">
+              <ol className="breadcrumb float-sm-right">
+                <li className="breadcrumb-item">
+                  <a href="/#">Home</a>
+                </li>
+                <li className="breadcrumb-item active">Dashboard v1</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
       <form
         onSubmit={async e => {
           e.preventDefault();
@@ -41,6 +59,7 @@ function Main(props) {
           display: 'flex',
           flexDirection: 'column',
           backgroundColor: '#ebebeb',
+          margin: 20,
           borderRadius: 4,
           height: 250,
           width: 350,
@@ -134,7 +153,8 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  createCategory: PropTypes.func
+  createCategory: PropTypes.func,
+  openSidebar: PropTypes.bool
 };
 
 export default connect(null, mapActionToProps)(Main);
