@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { history, store } from './redux';
-import { Login, Home } from './views';
+import Home from './views';
+import Login from './auth';
 import { meActions } from './redux/reducers/me';
 import { Api } from './utils';
 
@@ -54,10 +55,6 @@ const mapStateToProps = state => ({
 function App(props) {
   const { me } = props;
 
-  useEffect(() => {
-    store.dispatch(meActions.infoRequest());
-  }, []);
-
   const isAuthenticated = () => {
     const token = me.access_token;
     const refreshToken = me.refresh_token;
@@ -102,6 +99,13 @@ function App(props) {
         <div className="App">
           <Switch>
             <PrivateRoute exact path="/">
+              <Redirect
+                to={{
+                  pathname: '/beranda'
+                }}
+              />
+            </PrivateRoute>
+            <PrivateRoute path="/beranda">
               <Home />
             </PrivateRoute>
             <Route path="/login">

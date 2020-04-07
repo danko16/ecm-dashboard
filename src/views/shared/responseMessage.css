@@ -1,0 +1,17 @@
+.btn-tool {
+    padding: 0;
+    background: 0 0;
+    color: #ffffff;
+    font-size: .875rem;
+    outline: none!important;
+}
+
+.btn-tool:hover {
+    color: rgba(255,255,255, .325);
+}
+
+.right {
+    position: absolute;
+    right: 1rem;
+    top: .9rem;
+}

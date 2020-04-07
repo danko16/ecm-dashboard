@@ -1,50 +1,62 @@
 export const CATEGORY_ACTIONS = Object.freeze({
   SET_DATA: 'myapp/category/set-data',
-  CUSTOM_SET: 'myapp/category/custom-set',
-  CREATE_REQUEST: 'myapp/category/create-request'
+  CREATE_REQUEST: 'myapp/category/create-request',
+  CREATE_RESPONSE: 'myapp/category/create-response',
+  CREATE_ERROR: 'myapp/category/create-error'
 });
 
 export const categoryActions = Object.freeze({
-  setData: value => ({
+  setData: (field, value) => ({
     type: CATEGORY_ACTIONS.SET_DATA,
-    value
-  }),
-  customSet: (field, value) => ({
-    type: CATEGORY_ACTIONS.CUSTOM_SET,
     field,
     value
   }),
   createRequest: value => ({
     type: CATEGORY_ACTIONS.CREATE_REQUEST,
     value
+  }),
+  createResponse: value => ({
+    type: CATEGORY_ACTIONS.CREATE_RESPONSE,
+    value
+  }),
+  createError: value => ({
+    type: CATEGORY_ACTIONS.CREATE_ERROR,
+    value
   })
 });
 
 const initState = {
-  name: null,
-  image: null,
-  loading: null,
-  message: null
+  data: [],
+  message: '',
+  loading: false,
+  isError: false
 };
 
 const reducer = (state = initState, { type, value, field }) => {
   switch (type) {
-    case CATEGORY_ACTIONS.CUSTOM_SET:
+    case CATEGORY_ACTIONS.SET_DATA:
       return {
         ...state,
-        [field]: value,
-        loading: false
+        [field]: value
       };
     case CATEGORY_ACTIONS.CREATE_REQUEST:
       return {
         ...state,
         loading: true
       };
-    case CATEGORY_ACTIONS.SET_DATA:
+    case CATEGORY_ACTIONS.CREATE_RESPONSE:
       return {
         ...state,
-        name: value.name,
-        image: value.image,
+        data: value.categories,
+        message: value.message,
+        isError: false,
+        loading: false
+      };
+    case CATEGORY_ACTIONS.CREATE_ERROR:
+      return {
+        ...state,
+        message: value.message,
+        isError: true,
         loading: false
       };
     default:

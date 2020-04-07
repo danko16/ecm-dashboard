@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 import './sidebar.css';
 
@@ -55,7 +57,9 @@ const closedTreeIcon = {
 
 function Sidebar(props) {
   const { openSidebar } = props;
-  const [openTree, setOpenTree] = useState({ dashboard: false });
+  const [activeSidebar, setActiveSideBar] = useState('beranda');
+  const [activeberanda, setActiveberanda] = useState('produk');
+  const [openTree, setOpenTree] = useState({ beranda: false, widget: false });
   return (
     <div
       className="main-sidebar sidebar-dark-primary elevation-4"
@@ -92,55 +96,76 @@ function Sidebar(props) {
           <ul className="nav has-treeview nav-pills nav-sidebar flex-column">
             <li className="nav-item">
               <div
-                className="d-flex nav-link active align-items-center"
+                className={classNames('d-flex nav-link align-items-center', {
+                  active: activeSidebar === 'beranda' ? true : false
+                })}
                 onClick={() => {
-                  setOpenTree(state => ({ dashboard: !state.dashboard }));
+                  setOpenTree(state => ({ ...state, beranda: !state.beranda }));
                 }}
               >
                 <i className="nav-icon fas fa-tachometer-alt py-1"></i>
                 <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
-                  <span className="text-nowrap">Dashboard</span>
+                  <span className="text-nowrap">Beranda</span>
                   <i
                     className="right fas fa-angle-left"
-                    style={openTree.dashboard ? openedTreeIcon : closedTreeIcon}
+                    style={openTree.beranda ? openedTreeIcon : closedTreeIcon}
                   ></i>
                 </p>
               </div>
-              <ul className="nav nav-treeview" style={openTree.dashboard ? openedTree : closedTree}>
+              <ul className="nav nav-treeview" style={openTree.beranda ? openedTree : closedTree}>
                 <li className="nav-item">
-                  <div className="nav-link d-flex active align-items-center">
+                  <Link
+                    to="/beranda/produk"
+                    className={classNames('nav-link d-flex align-items-center', {
+                      active:
+                        activeSidebar === 'beranda' && activeberanda === 'produk' ? true : false
+                    })}
+                    onClick={() => {
+                      setActiveSideBar('beranda');
+                      setActiveberanda('produk');
+                    }}
+                  >
                     <i className="far fa-circle nav-icon py-1"></i>
                     <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
-                      <span className="text-nowrap">Dashboard v1</span>
+                      <span className="text-nowrap">Produk</span>
                     </p>
-                  </div>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <div className="nav-link d-flex align-items-center">
+                  <Link
+                    to="/beranda/kategori"
+                    className={classNames('nav-link d-flex align-items-center', {
+                      active:
+                        activeSidebar === 'beranda' && activeberanda === 'kategori' ? true : false
+                    })}
+                    onClick={() => {
+                      setActiveSideBar('beranda');
+                      setActiveberanda('kategori');
+                    }}
+                  >
                     <i className="far fa-circle nav-icon py-1"></i>
                     <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
-                      <span className="text-nowrap">Dashboard v2</span>
+                      <span className="text-nowrap">Kategori</span>
                     </p>
-                  </div>
-                </li>
-                <li className="nav-item">
-                  <div className="nav-link d-flex align-items-center">
-                    <i className="far fa-circle nav-icon py-1"></i>
-                    <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
-                      <span className="text-nowrap">Dashboard v3</span>
-                    </p>
-                  </div>
+                  </Link>
                 </li>
               </ul>
             </li>
-            <li className="nav-item nav-treeview">
-              <div href="/#" className="d-flex nav-link align-items-center">
+            <li className="nav-item">
+              <Link
+                to="/beranda/widget"
+                className={classNames('d-flex nav-link align-items-center', {
+                  active: activeSidebar === 'widget' ? true : false
+                })}
+                onClick={() => {
+                  setActiveSideBar('widget');
+                }}
+              >
                 <i className="nav-icon fas fa-th py-1"></i>
                 <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
                   Widgets
-                  <i className="right fas fa-angle-left"></i>
                 </p>
-              </div>
+              </Link>
             </li>
           </ul>
         </nav>

@@ -1,0 +1,158 @@
+.login-page, .register-page {
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: 512.391px;
+    background: #e9ecef;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(233, 236, 239);
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100vh;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.login-box, .register-box {
+    width: 450px;
+}
+
+.login-logo, .register-logo {
+    font-size: 2.1rem;
+    font-weight: 300;
+    margin-bottom: .9rem;
+    text-align: center;
+}
+
+.login-card-body, .register-card-body {
+    background: #fff;
+    border-top: 0;
+    color: #666;
+    padding: 20px;
+}
+
+.card {
+    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+    margin-bottom: 1rem;
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 2.25rem;
+    height: 500px;
+}
+
+.login-logo a, .register-logo a {
+    color: #495057;
+}
+
+.login-box-msg, .register-box-msg {
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    padding: 5px 0px;
+    width: 100%;
+}
+
+.input-group-append {
+    margin-left: -1px;
+}
+
+.input-group-append, .input-group-prepend {
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.login-card-body .input-group .form-control, .register-card-body .input-group .form-control {
+    border-right: 0;
+}
+
+.login-card-body .input-group .input-group-text, .register-card-body .input-group .input-group-text {
+    background-color: transparent;
+    border-bottom-right-radius: .25rem;
+    border-left: 0;
+    border-top-right-radius: .25rem;
+    color: #777;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+[class*=icheck-] {
+    min-height: 22px;
+    margin-top: 6px!important;
+    margin-bottom: 6px!important;
+    padding-left: 0;
+}
+
+[class*=icheck-]>input:first-child {
+    position: absolute!important;
+    opacity: 0;
+    margin: 0;
+}
+
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+}
+button, input {
+    overflow: visible;
+}
+
+[class*=icheck-]>input:first-child+input[type=hidden]+label::before, [class*=icheck-]>input:first-child+label::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #D3CFC8;
+    border-radius: 0;
+    margin-left: -29px;
+}
+
+[class*=icheck-]>label {
+    padding-left: 29px!important;
+    min-height: 22px;
+    line-height: 22px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.btn-block+.btn-block {
+    margin-top: 1rem;
+}

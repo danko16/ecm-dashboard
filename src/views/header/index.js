@@ -35,13 +35,13 @@ function Header(props) {
           </button>
         </li>
         <li className="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" className="nav-link">
-            Home
+          <a href="/" className="nav-link">
+            Beranda
           </a>
         </li>
         <li className="nav-item d-none d-sm-inline-block">
           <a href="/" className="nav-link">
-            Contact
+            Kontak
           </a>
         </li>
       </ul>
@@ -50,7 +50,7 @@ function Header(props) {
           <input
             className="form-control form-control-navbar"
             type="search"
-            placeholder="Search"
+            placeholder="Cari"
             aria-label="Search"
           />
           <div className="input-group-append">

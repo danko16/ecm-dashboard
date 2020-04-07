@@ -1,27 +1,33 @@
-import { call, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 
-import { CATEGORY_ACTIONS } from '../reducers/category';
+import { CATEGORY_ACTIONS, categoryActions } from '../reducers/category';
 import categoryApi from '../api/category';
 
 function* create({ value }) {
   try {
+    const { category } = yield select();
     const formData = new FormData();
 
-    formData.append('name', value.name);
     formData.append('file', value.file);
 
-    const {
-      data: { data }
-    } = yield call(categoryApi.create, formData);
-
+    const { data } = yield call(categoryApi.create, {
+      name: value.name,
+      desc: value.desc,
+      formData
+    });
     if (data) {
-      console.log(data);
+      const categories = [...category.data, value];
+      yield put(categoryActions.createResponse({ message: data.message, categories }));
     }
   } catch (error) {
-    console.log(error.response.data);
+    if (error.response) {
+      yield put(categoryActions.createError({ message: error.response.data.message }));
+    } else {
+      yield put(categoryActions.createError({ message: error }));
+    }
   }
 }
 
-const meSaga = [takeLatest(CATEGORY_ACTIONS.CREATE_REQUEST, create)];
+const categorySaga = [takeLatest(CATEGORY_ACTIONS.CREATE_REQUEST, create)];
 
-export default meSaga;
+export default categorySaga;
