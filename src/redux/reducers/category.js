@@ -1,14 +1,20 @@
 export const CATEGORY_ACTIONS = Object.freeze({
   SET_DATA: 'myapp/category/set-data',
+  ERROR: 'myapp/category/error',
   CREATE_REQUEST: 'myapp/category/create-request',
   CREATE_RESPONSE: 'myapp/category/create-response',
-  CREATE_ERROR: 'myapp/category/create-error'
+  GET_REQUEST: 'myapp/category/get-request',
+  GET_RESPONSE: 'myapp/category/get-response'
 });
 
 export const categoryActions = Object.freeze({
   setData: (field, value) => ({
     type: CATEGORY_ACTIONS.SET_DATA,
     field,
+    value
+  }),
+  error: value => ({
+    type: CATEGORY_ACTIONS.ERROR,
     value
   }),
   createRequest: value => ({
@@ -19,8 +25,11 @@ export const categoryActions = Object.freeze({
     type: CATEGORY_ACTIONS.CREATE_RESPONSE,
     value
   }),
-  createError: value => ({
-    type: CATEGORY_ACTIONS.CREATE_ERROR,
+  getRequest: () => ({
+    type: CATEGORY_ACTIONS.GET_REQUEST
+  }),
+  getResponse: value => ({
+    type: CATEGORY_ACTIONS.GET_RESPONSE,
     value
   })
 });
@@ -40,11 +49,13 @@ const reducer = (state = initState, { type, value, field }) => {
         [field]: value
       };
     case CATEGORY_ACTIONS.CREATE_REQUEST:
+    case CATEGORY_ACTIONS.GET_REQUEST:
       return {
         ...state,
         loading: true
       };
     case CATEGORY_ACTIONS.CREATE_RESPONSE:
+    case CATEGORY_ACTIONS.GET_RESPONSE:
       return {
         ...state,
         data: value.categories,
@@ -52,7 +63,7 @@ const reducer = (state = initState, { type, value, field }) => {
         isError: false,
         loading: false
       };
-    case CATEGORY_ACTIONS.CREATE_ERROR:
+    case CATEGORY_ACTIONS.ERROR:
       return {
         ...state,
         message: value.message,

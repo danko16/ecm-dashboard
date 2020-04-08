@@ -3,6 +3,24 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { CATEGORY_ACTIONS, categoryActions } from '../reducers/category';
 import categoryApi from '../api/category';
 
+function* get() {
+  try {
+    const {
+      data: { message, data }
+    } = yield call(categoryApi.get);
+    console.log(data);
+    if (data) {
+      yield put(categoryActions.getResponse({ categories: data, message: message }));
+    }
+  } catch (error) {
+    if (error.response) {
+      yield put(categoryActions.error({ message: error.response.data.message }));
+    } else {
+      yield put(categoryActions.error({ message: error }));
+    }
+  }
+}
+
 function* create({ value }) {
   try {
     const { category } = yield select();
@@ -21,13 +39,16 @@ function* create({ value }) {
     }
   } catch (error) {
     if (error.response) {
-      yield put(categoryActions.createError({ message: error.response.data.message }));
+      yield put(categoryActions.error({ message: error.response.data.message }));
     } else {
-      yield put(categoryActions.createError({ message: error }));
+      yield put(categoryActions.error({ message: error }));
     }
   }
 }
 
-const categorySaga = [takeLatest(CATEGORY_ACTIONS.CREATE_REQUEST, create)];
+const categorySaga = [
+  takeLatest(CATEGORY_ACTIONS.CREATE_REQUEST, create),
+  takeLatest(CATEGORY_ACTIONS.GET_REQUEST, get)
+];
 
 export default categorySaga;

@@ -32,34 +32,9 @@ const closedNavlink = {
   transition: 'margin-left 3s linear,opacity .3s ease,visibility .3s ease'
 };
 
-const openedTree = {
-  display: 'block',
-  maxHeight: 200,
-  opacity: 1,
-  transition: 'max-height 0.4s ease-in-out, opacity .4s ease'
-};
-
-const closedTree = {
-  display: 'block',
-  opacity: 0,
-  maxHeight: 0,
-  transition: 'max-height 0.4s ease-in-out, opacity .4s ease'
-};
-
-const openedTreeIcon = {
-  transform: 'rotate(-90deg)',
-  transition: 'transform ease-in-out .3s,-webkit-transform ease-in-out .3s'
-};
-
-const closedTreeIcon = {
-  transition: 'transform ease-in-out .3s,-webkit-transform ease-in-out .3s'
-};
-
 function Sidebar(props) {
   const { openSidebar } = props;
   const [activeSidebar, setActiveSideBar] = useState('beranda');
-  const [activeberanda, setActiveberanda] = useState('produk');
-  const [openTree, setOpenTree] = useState({ beranda: false, widget: false });
   return (
     <div
       className="main-sidebar sidebar-dark-primary elevation-4"
@@ -95,75 +70,50 @@ function Sidebar(props) {
         <nav className="mt-2">
           <ul className="nav has-treeview nav-pills nav-sidebar flex-column">
             <li className="nav-item">
-              <div
+              <Link
+                to="/beranda"
                 className={classNames('d-flex nav-link align-items-center', {
-                  active: activeSidebar === 'beranda' ? true : false
+                  active: activeSidebar === 'beranda'
                 })}
                 onClick={() => {
-                  setOpenTree(state => ({ ...state, beranda: !state.beranda }));
+                  setActiveSideBar('beranda');
                 }}
               >
                 <i className="nav-icon fas fa-tachometer-alt py-1"></i>
                 <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
                   <span className="text-nowrap">Beranda</span>
-                  <i
-                    className="right fas fa-angle-left"
-                    style={openTree.beranda ? openedTreeIcon : closedTreeIcon}
-                  ></i>
                 </p>
-              </div>
-              <ul className="nav nav-treeview" style={openTree.beranda ? openedTree : closedTree}>
-                <li className="nav-item">
-                  <Link
-                    to="/beranda/produk"
-                    className={classNames('nav-link d-flex align-items-center', {
-                      active:
-                        activeSidebar === 'beranda' && activeberanda === 'produk' ? true : false
-                    })}
-                    onClick={() => {
-                      setActiveSideBar('beranda');
-                      setActiveberanda('produk');
-                    }}
-                  >
-                    <i className="far fa-circle nav-icon py-1"></i>
-                    <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
-                      <span className="text-nowrap">Produk</span>
-                    </p>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/beranda/kategori"
-                    className={classNames('nav-link d-flex align-items-center', {
-                      active:
-                        activeSidebar === 'beranda' && activeberanda === 'kategori' ? true : false
-                    })}
-                    onClick={() => {
-                      setActiveSideBar('beranda');
-                      setActiveberanda('kategori');
-                    }}
-                  >
-                    <i className="far fa-circle nav-icon py-1"></i>
-                    <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
-                      <span className="text-nowrap">Kategori</span>
-                    </p>
-                  </Link>
-                </li>
-              </ul>
+              </Link>
+              <li className="nav-item">
+                <Link
+                  to="/beranda/produk"
+                  className={classNames('nav-link d-flex align-items-center', {
+                    active: activeSidebar === 'produk'
+                  })}
+                  onClick={() => {
+                    setActiveSideBar('produk');
+                  }}
+                >
+                  <i className="nav-icon fas fa-tree"></i>
+                  <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
+                    <span className="text-nowrap">Produk</span>
+                  </p>
+                </Link>
+              </li>
             </li>
             <li className="nav-item">
               <Link
-                to="/beranda/widget"
-                className={classNames('d-flex nav-link align-items-center', {
-                  active: activeSidebar === 'widget' ? true : false
+                to="/beranda/kategori"
+                className={classNames('nav-link d-flex align-items-center', {
+                  active: activeSidebar === 'kategori'
                 })}
                 onClick={() => {
-                  setActiveSideBar('widget');
+                  setActiveSideBar('kategori');
                 }}
               >
                 <i className="nav-icon fas fa-th py-1"></i>
                 <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
-                  Widgets
+                  <span className="text-nowrap">Kategori</span>
                 </p>
               </Link>
             </li>
