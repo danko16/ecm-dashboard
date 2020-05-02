@@ -4,7 +4,9 @@ export const CATEGORY_ACTIONS = Object.freeze({
   CREATE_REQUEST: 'myapp/category/create-request',
   CREATE_RESPONSE: 'myapp/category/create-response',
   GET_REQUEST: 'myapp/category/get-request',
-  GET_RESPONSE: 'myapp/category/get-response'
+  GET_RESPONSE: 'myapp/category/get-response',
+  DELETE_REQUEST: 'myapp/category/delete-request',
+  DELETE_RESPONSE: 'myapp/category/delete-response'
 });
 
 export const categoryActions = Object.freeze({
@@ -31,6 +33,14 @@ export const categoryActions = Object.freeze({
   getResponse: value => ({
     type: CATEGORY_ACTIONS.GET_RESPONSE,
     value
+  }),
+  deleteRequest: value => ({
+    type: CATEGORY_ACTIONS.DELETE_REQUEST,
+    value
+  }),
+  deleteResponse: value => ({
+    type: CATEGORY_ACTIONS.DELETE_RESPONSE,
+    value
   })
 });
 
@@ -50,12 +60,14 @@ const reducer = (state = initState, { type, value, field }) => {
       };
     case CATEGORY_ACTIONS.CREATE_REQUEST:
     case CATEGORY_ACTIONS.GET_REQUEST:
+    case CATEGORY_ACTIONS.DELETE_REQUEST:
       return {
         ...state,
         loading: true
       };
     case CATEGORY_ACTIONS.CREATE_RESPONSE:
     case CATEGORY_ACTIONS.GET_RESPONSE:
+    case CATEGORY_ACTIONS.DELETE_RESPONSE:
       return {
         ...state,
         data: value.categories,

@@ -8,9 +8,27 @@ function* get() {
     const {
       data: { message, data }
     } = yield call(categoryApi.get);
-    console.log(data);
     if (data) {
       yield put(categoryActions.getResponse({ categories: data, message: message }));
+    }
+  } catch (error) {
+    if (error.response) {
+      yield put(categoryActions.error({ message: error.response.data.message }));
+    } else {
+      yield put(categoryActions.error({ message: error }));
+    }
+  }
+}
+
+function* deleteCategory({ value }) {
+  try {
+    const { category } = yield select();
+    const {
+      data: { message }
+    } = yield call(categoryApi.deleteCategory, { id: value });
+    if (message) {
+      let data = category.data.filter(category => category.id !== value);
+      yield put(categoryActions.deleteResponse({ categories: data, message }));
     }
   } catch (error) {
     if (error.response) {
@@ -48,7 +66,8 @@ function* create({ value }) {
 
 const categorySaga = [
   takeLatest(CATEGORY_ACTIONS.CREATE_REQUEST, create),
-  takeLatest(CATEGORY_ACTIONS.GET_REQUEST, get)
+  takeLatest(CATEGORY_ACTIONS.GET_REQUEST, get),
+  takeLatest(CATEGORY_ACTIONS.DELETE_REQUEST, deleteCategory)
 ];
 
 export default categorySaga;

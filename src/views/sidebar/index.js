@@ -84,22 +84,22 @@ function Sidebar(props) {
                   <span className="text-nowrap">Beranda</span>
                 </p>
               </Link>
-              <li className="nav-item">
-                <Link
-                  to="/beranda/produk"
-                  className={classNames('nav-link d-flex align-items-center', {
-                    active: activeSidebar === 'produk'
-                  })}
-                  onClick={() => {
-                    setActiveSideBar('produk');
-                  }}
-                >
-                  <i className="nav-icon fas fa-tree"></i>
-                  <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
-                    <span className="text-nowrap">Produk</span>
-                  </p>
-                </Link>
-              </li>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/beranda/produk"
+                className={classNames('nav-link d-flex align-items-center', {
+                  active: activeSidebar === 'produk'
+                })}
+                onClick={() => {
+                  setActiveSideBar('produk');
+                }}
+              >
+                <i className="nav-icon fas fa-tree"></i>
+                <p className="m-0 ml-2 p-0" style={openSidebar ? null : closedNavlink}>
+                  <span className="text-nowrap">Produk</span>
+                </p>
+              </Link>
             </li>
             <li className="nav-item">
               <Link
